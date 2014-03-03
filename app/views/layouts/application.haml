@@ -11,4 +11,11 @@
         .navbar-header
           %a.navbar-brand{href: "#"} Todos
     .container
+      - if !notice.nil?
+        .alert.alert-success
+          = notice
+      - if !alert.nil?
+        .alert.alert-danger
+          = alert
+    .container
       = yield
