@@ -16,3 +16,5 @@
 /tmp
 tags
 .env
+
+.DS_Store
