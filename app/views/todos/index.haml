@@ -1,2 +1,8 @@
-.col-lg-12
-  %h1 Welcome.
+%h1 All Tasks
+%ul.list-group
+  - @tasks.each do |t|
+    %li.list-group-item
+      = t.title
+      .small.pull-right.task-list-title
+        =t.list.title
+

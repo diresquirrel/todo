@@ -2,5 +2,15 @@
 @import "bootstrap";
 
 body {
-  padding-top: 40px;
+  padding-top: 75px;
+}
+
+.task-list-title {
+  color: #888888;
+  padding-top: 2px;
+}
+
+.list-completed .list-group-item{
+  background-color: whitesmoke;
+  color: #666666;
 }

@@ -3,7 +3,8 @@ class CreateTasks < ActiveRecord::Migration
     create_table :tasks do |t|
       t.string :title
       t.text :notes
-      t.belongs_to :user
+      t.boolean :complete
+      t.belongs_to :list
 
       t.timestamps
     end

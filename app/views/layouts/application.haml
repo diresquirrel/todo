@@ -9,7 +9,18 @@
     %nav.navbar.navbar-default.navbar-fixed-top{role: "navigation"}
       .container
         .navbar-header
-          %a.navbar-brand{href: "#"} Todos
+          %a.navbar-brand{href: "/"} Todos
+        %ul.nav.navbar-nav.navbar-right
+          - if !user_signed_in?
+            %li
+              = link_to "Sign in", new_user_session_path
+            %li
+              = link_to "Sign up", new_user_registration_path
+          - else
+            %li
+              = link_to "Signed in as #{@user.email}", '#'
+            %li
+              = link_to "Sign out", destroy_user_session_path, :method => :delete
     .container
       - if !notice.nil?
         .alert.alert-success
@@ -18,4 +29,10 @@
         .alert.alert-danger
           = alert
     .container
-      = yield
+      .col-lg-3
+        %ul.nav.nav-pills
+          - @lists.each do |l|
+            %li
+              = link_to l.title, l
+      .col-lg-6
+        = yield

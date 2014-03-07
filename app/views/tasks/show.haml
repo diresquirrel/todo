@@ -1,0 +1,13 @@
+%h1
+  = @task.title
+- if @task.complete
+  .label.label-default Complete
+.well
+  = @task.notes
+%ul.nav.nav-pills
+  %li
+    = link_to 'Toggle', toggle_path(@task), :method => :put
+  %li
+    = link_to 'Edit', edit_task_path(@task)
+  %li
+    = link_to 'Back', tasks_path
