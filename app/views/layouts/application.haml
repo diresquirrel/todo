@@ -28,11 +28,16 @@
       - if !alert.nil?
         .alert.alert-danger
           = alert
-    .container
-      .col-lg-3
-        %ul.nav.nav-pills
-          - @lists.each do |l|
-            %li
-              = link_to l.title, l
-      .col-lg-6
-        = yield
+    - if @lists.nil?
+      .container
+        .col-lg-12
+          = yield
+    - else
+      .container
+        .col-lg-3
+          %ul.nav.nav-pills
+            - @lists.each do |l|
+              %li
+                = link_to l.title, l
+        .col-lg-6
+          = yield
