@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20140306135404) do
   create_table "tasks", force: true do |t|
     t.string   "title"
     t.text     "notes"
-    t.boolean  "complete"
+    t.boolean  "complete",   default: false
     t.integer  "list_id"
     t.datetime "created_at"
     t.datetime "updated_at"

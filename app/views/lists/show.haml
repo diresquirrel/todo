@@ -1,26 +1,22 @@
-%h1
-  = @list.title
+%h1= @list.title
+=link_to 'Edit', edit_list_path(@list)
 %ul.list-group
   - @tasks.each do |t|
     %li.list-group-item
-      .pull-right
-        = link_to 'Check', toggle_path(t), :method => :put
+      .pull-left= link_to 'Check', toggle_path(t), :method => :put
       = t.title
 
 = form_for @newTask do |f|
+  = f.hidden_field :list_id
   .input-group
     = f.text_field :title, :class => 'form-control'
     %span.input-group-btn
-      %button.btn.btn-default Create
+      =f.submit 'Create', :class => 'btn btn-default'
 
 - if !@tasks_completed.empty?
   %h3 Completed
   %ul.list-group.list-completed
     - @tasks_completed.each do |t|
       %li.list-group-item
-        .pull-right
-          = link_to 'Uncheck', toggle_path(t), :method => :put
+        .pull-left= link_to 'Uncheck', toggle_path(t), :method => :put
         = t.title
-.well
-  = link_to 'Edit', edit_list_path(@list)
-  = link_to 'Back', lists_path

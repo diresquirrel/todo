@@ -8,4 +8,8 @@ class Task < ActiveRecord::Base
   def self.not_completed ()
     where(completed: false).all
   end
+  
+  def self.toggle()
+    
+  end
 end

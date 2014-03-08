@@ -35,9 +35,10 @@
     - else
       .container
         .col-lg-3
-          %ul.nav.nav-pills
+          %ul.nav.nav-pills.nav-stacked
             - @lists.each do |l|
               %li
                 = link_to l.title, l
+            %li= link_to '+ New List', new_list_path
         .col-lg-6
           = yield

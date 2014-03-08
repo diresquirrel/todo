@@ -9,7 +9,7 @@ class ListsController < ApplicationController
 
   # GET /lists/1
   def show
-    @newTask = Task.new
+    @newTask = @list.tasks.build
     @tasks = @list.tasks.where(complete: false)
     @tasks_completed = @list.tasks.where(complete: true)
   end
