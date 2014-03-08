@@ -5,6 +5,10 @@ class Task < ActiveRecord::Base
     self.complete == true
   end
   
+  def toggle
+    self.complete = !self.complete
+  end
+  
   def self.completed ()
     where(completed: true).all
   end

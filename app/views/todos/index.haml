@@ -1,4 +1,6 @@
 %h1 All Tasks
-%ul.list-group
-  - @tasks.each do |t|
-    =render 'task', :task => t
+=render 'lists/list', :tasks => @tasks
+- if !@completedTasks.empty?
+  %h3 Completed
+  .list-completed
+    =render 'lists/list', :tasks => @completedTasks

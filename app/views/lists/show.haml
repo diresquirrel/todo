@@ -8,7 +8,7 @@
     %span.input-group-btn
       =f.submit 'Create', :class => 'btn btn-default'
 
-- if !@tasks_completed.empty?
+- if !@completedTasks.empty?
   %h3 Completed
   .list-completed
-    =render 'list', :tasks => @tasks_completed
+    =render 'list', :tasks => @completedTasks
