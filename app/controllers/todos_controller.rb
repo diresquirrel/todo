@@ -3,6 +3,7 @@ class TodosController < ApplicationController
   
   def index
     @tasks = @user.tasks.where(complete: false)
+    @completedTasks = @user.tasks.where(complete: true)
   end  
   
 end

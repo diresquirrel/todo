@@ -11,7 +11,7 @@ class ListsController < ApplicationController
   def show
     @newTask = @list.tasks.build
     @tasks = @list.tasks.where(complete: false)
-    @tasks_completed = @list.tasks.where(complete: true)
+    @completedTasks = @list.tasks.where(complete: true)
   end
 
   # GET /lists/new
