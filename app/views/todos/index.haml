@@ -1,10 +1,12 @@
+- showListTitle = true
+
 .list-tasks
   %h1 All Tasks
-  =render 'lists/list', :tasks => @tasks
+  =render partial: 'lists/list', :locals => { :tasks => @tasks, :showListTitle => showListTitle }
   
 .list-tasks-completed
   %h3 Completed
-  =render 'lists/list', :tasks => @completedTasks
+  =render  partial: 'lists/list', :locals => { :tasks => @completedTasks, :showListTitle => showListTitle }
   
 :coffeescript
   $(document).ready () ->
