@@ -3,10 +3,11 @@
 
 = form_for @newTask do |f|
   = f.hidden_field :list_id
-  .input-group
-    = f.text_field :title, :class => 'form-control'
-    %span.input-group-btn
-      =f.submit 'Create', :class => 'btn btn-default'
+  .form-group
+    .input-group
+      = f.text_field :title, :class => 'form-control'
+      %span.input-group-btn
+        =f.submit 'Create', :class => 'btn btn-default'
 
 .list-tasks
   =render 'list', :tasks => @tasks
