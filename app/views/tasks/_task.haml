@@ -1,10 +1,12 @@
 %li.list-group-item
   - if !task.complete?
     .task-toggle.pull-left
-      = link_to 'Check', toggle_path(task), :class => 'toggle', :method => :put, remote: true
+      %a.toggle{ :href => toggle_path(task), 'data-method' => :put, 'data-remote' => true }
+        %span.glyphicon.glyphicon-unchecked
   - else
     .task-toggle.pull-left
-      = link_to 'Uncheck', toggle_path(task), :class => 'toggle', :method => :put, remote: true
+      %a.toggle{ :href => toggle_path(task), 'data-method' => :put, 'data-remote' => true }
+        %span.glyphicon.glyphicon-check
 
   .pull-right
     - if !task.complete?

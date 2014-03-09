@@ -47,7 +47,17 @@
             %li= link_to 'All Tasks', root_path
             - @lists.each do |l|
               %li
-                = link_to l.title, l
+                %a{ :href => list_path(l), :class => 'menu-list menu-list-' + l.id.to_s }
+                  %span= l.title
+                  %span.label.label-primary= l.tasks.not_completed.count
+            :coffeescript
+              $(document).ready () ->
+                $.each $('.menu-list .label'), () ->
+                  self = $(this)
+                  if self.html() == '0'
+                    self.hide()
+                  return
+                return
             %li= link_to '+ New List', new_list_path
         .col-lg-6
           = yield

@@ -14,27 +14,47 @@ $(document).ready ->
     $('.list-tasks .list-group').append(t)
     t.fadeIn(300)
     return
-    
+  
+  toggleTaskBefore = (event) ->
+    self = $(event.currentTarget)
+    if self.find('.glyphicon-unchecked').length > 0
+      self.html('<span class="glyphicon glyphicon-check"></span>')
+    else
+      self.html('<span class="glyphicon glyphicon-unchecked"></span>')
+      
+    return
+
+  toggleTaskError = (event) ->
+    toggleTaskBefore(event)
+    return
 
   toggleTask = (event, data) ->
     $(event.currentTarget).parent().parent().fadeOut 300, () ->
       $(this).remove()
+      
+      t = $(data.html)
+      t.hide()
+      
+      c = data.taskCount
+    
+      if !data.task.complete
+        $('.list-tasks .list-group').append(t)
+      else
+        $('.list-tasks-completed .list-group').prepend(t)
+    
+      if $('.list-tasks-completed .list-group li').length > 0
+        $('.list-tasks-completed').show()
+      else
+        $('.list-tasks-completed').hide()
+    
+      t.fadeIn(300)
+      
+      $('.menu-list-' + data.task.list_id).find('.label').html(c)
+      if c == 0
+        $('.menu-list-' + data.task.list_id).find('.label').hide()
+      else
+        $('.menu-list-' + data.task.list_id).find('.label').show()
       return
-    
-    t = $(data.html)
-    t.hide()
-    
-    if !data.task.complete
-      $('.list-tasks .list-group').append(t)
-    else
-      $('.list-tasks-completed .list-group').append(t)
-    
-    if $('.list-tasks-completed .list-group li').length > 0
-      $('.list-tasks-completed').show()
-    else
-      $('.list-tasks-completed').hide()
-    
-    t.fadeIn(300)
     return
   
   deleteTask = (event, data) ->
@@ -44,7 +64,9 @@ $(document).ready ->
     return
         
   $(document).on 'ajax:success', '.new_task', newTask
+  $(document).on 'ajax:before', '.toggle', toggleTaskBefore
   $(document).on 'ajax:success', '.toggle', toggleTask
+  $(document).on 'ajax:error', '.toggle', toggleTaskError
   $(document).on 'ajax:success', '.delete_task', deleteTask
   
   return

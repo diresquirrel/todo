@@ -7,7 +7,7 @@
     .input-group
       = f.text_field :title, :class => 'form-control'
       %span.input-group-btn
-        =f.submit 'Create', :class => 'btn btn-default'
+        =f.submit 'Create Task', :class => 'btn btn-default'
 
 .list-tasks
   =render 'list', :tasks => @tasks

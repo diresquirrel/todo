@@ -71,7 +71,7 @@ class TasksController < ApplicationController
         returnUrl = session.delete(:return_to)
         format.html { redirect_to returnUrl }
         format.js {
-          js_out = { :task => @task, :html => render_to_string(@task, layout: false) }
+          js_out = { :task => @task, :html => render_to_string(@task, layout: false), :taskCount => @task.list.tasks.not_completed.count }
           render json: js_out, :content_type => 'text/json'
         }
         format.json { render json: @task, status: :updated, location: @task }      

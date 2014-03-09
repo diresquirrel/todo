@@ -10,11 +10,11 @@ class Task < ActiveRecord::Base
   end
   
   def self.completed ()
-    where(completed: true).all
+    where(complete: true).all
   end
   
   def self.not_completed ()
-    where(completed: false).all
+    where(complete: false).all
   end
   
 end
