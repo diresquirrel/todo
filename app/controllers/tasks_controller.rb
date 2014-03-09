@@ -1,6 +1,8 @@
 class TasksController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  
+  respond_to :html, :js, :json
 
   # GET /tasks
   def index
@@ -51,12 +53,21 @@ class TasksController < ApplicationController
     session[:return_to] ||= request.referer
     
     set_task
-    @task.complete = !@task.complete
+    @task.toggle
     
-    if @task.save
-      redirect_to session.delete(:return_to)
-    else
-      redirect_to session.delete(:return_to), alert: 'Unable to toggle the task.'
+    respond_to do |format|
+      if @task.save
+        returnUrl = session.delete(:return_to)
+        format.html { redirect_to returnUrl }
+        format.js {
+          js_out = { :task => @task, :html => render_to_string(@task, layout: false) }
+          render json: js_out, :content_type => 'text/json'
+        }
+        format.json { render json: @task, status: :updated, location: @task }      
+      else
+        format.html { redirect_to returnUrl, alert: 'Unable to toggle the task' }
+        format.json { render json: @task.errors, status: :unprocessable_entity }
+      end
     end
   end
 

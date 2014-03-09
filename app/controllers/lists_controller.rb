@@ -10,8 +10,8 @@ class ListsController < ApplicationController
   # GET /lists/1
   def show
     @newTask = @list.tasks.build
-    @tasks = @list.tasks.where(complete: false)
-    @completedTasks = @list.tasks.where(complete: true)
+    @tasks = @list.tasks.where(complete: false).order(:updated_at)
+    @completedTasks = @list.tasks.where(complete: true).order(:updated_at)
   end
 
   # GET /lists/new

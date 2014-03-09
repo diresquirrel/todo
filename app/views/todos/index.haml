@@ -1,6 +1,16 @@
-%h1 All Tasks
-=render 'lists/list', :tasks => @tasks
-- if !@completedTasks.empty?
+.list-tasks
+  %h1 All Tasks
+  =render 'lists/list', :tasks => @tasks
+  
+.list-tasks-completed
   %h3 Completed
-  .list-completed
-    =render 'lists/list', :tasks => @completedTasks
+  =render 'lists/list', :tasks => @completedTasks
+  
+:coffeescript
+  $(document).ready () ->
+    if $('.list-tasks-completed .list-group li').length > 0
+      $('.list-tasks-completed').show()
+      return
+    else
+      $('.list-tasks-completed').hide()
+      return

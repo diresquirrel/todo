@@ -1,9 +1,0 @@
-%li.list-group-item
-  - if !task.complete?
-    .pull-left
-      = link_to 'Check', toggle_path(task), :method => :put
-  - else
-    .pull-left
-      = link_to 'Uncheck', toggle_path(task), :method => :put
-  = task.title
-  .task-list-title.small.pull-right= task.list.title
