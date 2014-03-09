@@ -7,5 +7,9 @@
       = link_to 'Uncheck', toggle_path(task), :class => 'toggle', :method => :put, remote: true
   = task.title
   
+  - if defined?(showListTitle) && showListTitle
+    .task-list-title.pull-right.small
+      = task.list.title
+  
 :coffeescript
   

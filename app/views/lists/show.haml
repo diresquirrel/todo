@@ -1,6 +1,6 @@
 %h1= @list.title
 =link_to 'Edit', edit_list_path(@list)
-=render 'list', :tasks => @tasks
+
 = form_for @newTask do |f|
   = f.hidden_field :list_id
   .input-group
@@ -8,7 +8,18 @@
     %span.input-group-btn
       =f.submit 'Create', :class => 'btn btn-default'
 
-- if !@completedTasks.empty?
+.list-tasks
+  =render 'list', :tasks => @tasks
+  
+.list-tasks-completed
   %h3 Completed
-  .list-completed
-    =render 'list', :tasks => @completedTasks
+  =render 'list', :tasks => @completedTasks
+  
+:coffeescript
+  $(document).ready () ->
+    if $('.list-tasks-completed .list-group li').length > 0
+      $('.list-tasks-completed').show()
+      return
+    else
+      $('.list-tasks-completed').hide()
+      return
