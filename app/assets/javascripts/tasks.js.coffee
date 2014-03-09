@@ -11,10 +11,19 @@ $(document).ready ->
     
     t = $(data.html)
     t.hide()
+    
+    c = data.taskCount
+    
     $('.list-tasks .list-group').append(t)
     t.fadeIn(300)
+    
+    $('.menu-list-' + data.task.list_id).find('.label').html(c)
+    if c == 0
+      $('.menu-list-' + data.task.list_id).find('.label').hide()
+    else
+      $('.menu-list-' + data.task.list_id).find('.label').show()
     return
-  
+      
   toggleTaskBefore = (event) ->
     self = $(event.currentTarget)
     if self.find('.glyphicon-unchecked').length > 0
@@ -61,6 +70,13 @@ $(document).ready ->
     $(event.currentTarget).parent().parent().fadeOut 300, () ->
       $(this).remove()
       return
+    $('.menu-list-' + data.listId).find('.label').html(data.taskCount)
+    if data.taskCount == 0
+      $('.menu-list-' + data.listId).find('.label').hide()
+    else
+      $('.menu-list-' + data.listId).find('.label').show()
+    return
+    
     return
         
   $(document).on 'ajax:success', '.new_task', newTask

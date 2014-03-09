@@ -30,7 +30,7 @@ class TasksController < ApplicationController
       if @task.save
         format.html { redirect_to @task, notice: 'Task was successfully created.' }
         format.js {
-          js_out = { :task => @task, :html => render_to_string(@task, layout: false) }
+          js_out = { :task => @task, :html => render_to_string(@task, layout: false), :taskCount => @task.list.tasks.not_completed.count }
           render json: js_out, :content_type => 'text/json'
         }
         format.json { render json: @task, status: :updated, location: @task }        
@@ -51,11 +51,13 @@ class TasksController < ApplicationController
 
   # DELETE /tasks/1
   def destroy
+    count = @task.list.tasks.not_completed.count - 1
+    listId = @task.list_id
     @task.destroy
     
     respond_to do |format|
       format.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
-      format.js { render json: {}, :content_type => 'text/json' }
+      format.js { render json: { :taskCount => count, :listId => listId }, :content_type => 'text/json' }
     end
   end
   
