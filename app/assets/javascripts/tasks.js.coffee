@@ -5,9 +5,21 @@
 $ = jQuery
 
 $(document).ready ->
+      
+  newTask = (event, data) ->
+    $(event.currentTarget).find('#task_title').val('')
+    
+    t = $(data.html)
+    t.hide()
+    $('.list-tasks .list-group').append(t)
+    t.fadeIn(300)
+    return
+    
 
   toggleTask = (event, data) ->
-    $(event.currentTarget).parent().parent().remove()
+    $(event.currentTarget).parent().parent().fadeOut 300, () ->
+      $(this).remove()
+      return
     
     t = $(data.html)
     t.hide()
@@ -24,7 +36,15 @@ $(document).ready ->
     
     t.fadeIn(300)
     return
-    
+  
+  deleteTask = (event, data) ->
+    $(event.currentTarget).parent().parent().fadeOut 300, () ->
+      $(this).remove()
+      return
+    return
+        
+  $(document).on 'ajax:success', '.new_task', newTask
   $(document).on 'ajax:success', '.toggle', toggleTask
+  $(document).on 'ajax:success', '.delete_task', deleteTask
   
   return

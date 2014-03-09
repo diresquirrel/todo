@@ -1,8 +1,15 @@
 %li.list-group-item
   - if !task.complete?
-    .pull-left
+    .task-toggle.pull-left
       = link_to 'Check', toggle_path(task), :class => 'toggle', :method => :put, remote: true
   - else
-    .pull-left
+    .task-toggle.pull-left
       = link_to 'Uncheck', toggle_path(task), :class => 'toggle', :method => :put, remote: true
-  = task.title
+
+  .pull-right
+    - if !task.complete?
+      %a.delete_task{ :href => task_path(task), 'data-method' => :delete, 'data-remote' => true, 'data-confirm' => "Are you sure you want to delete \"#{task.title}\"?" }
+        %span.glyphicon.glyphicon-trash
+      
+  .task-info
+    = task.title

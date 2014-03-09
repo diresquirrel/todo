@@ -25,9 +25,17 @@
       - if !notice.nil?
         .alert.alert-success
           = notice
+          %a.close{ :href => '#', 'data-dismiss' => 'alert' } &times;
       - if !alert.nil?
         .alert.alert-danger
           = alert
+          %a.close{ :href => '#', 'data-dismiss' => 'alert' } &times;
+          
+    :coffeescript
+      $(document).ready () ->
+        $('.alert').alert()
+        return
+          
     - if @lists.nil?
       .container
         .col-lg-12

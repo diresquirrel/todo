@@ -26,10 +26,17 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     
-    if @task.save
-      redirect_to @task, notice: 'Task was successfully created.'
-    else
-      render action: 'new'
+    respond_to do |format|
+      if @task.save
+        format.html { redirect_to @task, notice: 'Task was successfully created.' }
+        format.js {
+          js_out = { :task => @task, :html => render_to_string(@task, layout: false) }
+          render json: js_out, :content_type => 'text/json'
+        }
+        format.json { render json: @task, status: :updated, location: @task }        
+      else
+        format.html { render action: 'new' }
+      end
     end
   end
 
@@ -45,7 +52,11 @@ class TasksController < ApplicationController
   # DELETE /tasks/1
   def destroy
     @task.destroy
-    redirect_to tasks_url, notice: 'Task was successfully destroyed.'
+    
+    respond_to do |format|
+      format.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
+      format.js { render json: {}, :content_type => 'text/json' }
+    end
   end
   
   # TOGGLE COMPLETE /tasks/1/toggle
