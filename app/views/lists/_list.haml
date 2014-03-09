@@ -1,5 +1,3 @@
-- showListTitle ||= false
-
 %ul.list-group
   - tasks.each do |t|
-    =render partial: 'tasks/task', :locals => { :task => t, :showListTitle => showListTitle }
+    =render partial: 'tasks/task', :locals => { :task => t }
